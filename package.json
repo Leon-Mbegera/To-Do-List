@@ -1,0 +1,19 @@
+{
+  "name": "to-do-list",
+  "version": "1.0.0",
+  "description": "An app to create todos and organize them into projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Leon-Mbegera/To-Do-List.git"
+  },
+  "author": "leon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Leon-Mbegera/To-Do-List/issues"
+  },
+  "homepage": "https://github.com/Leon-Mbegera/To-Do-List#readme"
+}
