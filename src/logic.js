@@ -1,23 +1,32 @@
-function createProject(projectTitle) {
+class Project {
 
-  const title = projectTitle;
-  const todos = [];
-
-  const getTitle = () => {
-    return title;
+  constructor(title) {
+    this.title = title;
+    this.todos = [];
   }
 
-  
-  const addTodo = (todo) => {
+  addTodo = (todo) => {
     todos.push(todo);
   }
 
-  const deleteTodo = (todoTitle) => {
+  getTodo = (todoTitle) => {
+    const myTodo;
+    todos.forEach((todo) => {
+      if (todo.getTitle() === todoTitle) {
+        myTodo = todo;
+      }
+    });
+    return myTodo;
+  }
+
+  deleteTodo = (todoTitle) => {
     todos.forEach((todo, idx) => {
       if (todo.getTitle() === todoTitle) {
         todos.splice(idx, 1);
       }
     });
   }
+}
 
-}  
+
+
