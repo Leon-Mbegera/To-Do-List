@@ -30,16 +30,17 @@ class Project {
 
 class Todo {
 
-  constructor(title, description, priority, dueDate, completion = false) {
+  constructor(title, description, priority, dueDate, completion = 'pending') {
     this.title = title;
     this.description = description;
     this.priority = priority;
     this.dueDate = dueDate;
+    this.completion = completion;
   }
 
-  
-
-
+  assignPriority = (givenPriority) => {
+    priority = givenPriority
+  }
 }
 
 
