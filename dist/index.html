@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.scss">
   <title>ToDo App</title>
 </head>
 <body>
   <header id='header'>
-    <h2>My To-Do App</h2>
+    <h2 class='header'>My To-Do App</h2>
   </header>
   <main>
     <div>
@@ -17,7 +20,7 @@
       </div>
       <form>
         <label for="title">Title</label>
-        <input type='text' id='title' placeholder="project title" required>
+        <input type='text' id='title' autocomplete='off' placeholder="project title" required>
       </form>
       <h5 class='project-name'></h5>
       <div class='project-todos'>
