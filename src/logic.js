@@ -28,6 +28,14 @@ class Project {
   }
 }
 
+const allProjects = [];
+
+const projectCard = (project, idx) => {
+  const div = document.createElement('div');
+  div.dataset.index = idx;
+  div.addEventListener('click', onProjectClick);
+}
+
 class Todo {
 
   constructor(title, description, priority, dueDate, completion = 'pending') {
