@@ -30,6 +30,14 @@ class Project {
 
 const allProjects = [];
 
+allProjects.forEach((project, idx) => {
+  const newProjectCard = projectCard(project, idx);
+  const projectSection = document.getElementByClassName('all-projects');
+  projectSection.append(newProjectCard);
+});
+
+
+
 const projectCard = (project, idx) => {
   const div = document.createElement('div');
   div.dataset.index = idx;
