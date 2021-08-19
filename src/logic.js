@@ -55,7 +55,7 @@ form.addEventListener('submit', ()=> {
 
 });
 
-
+let currentProject;
 // Build a todo 
 const createTodo = () => {
   const todoForm = document.createElement('form');
@@ -84,6 +84,19 @@ const createTodo = () => {
     return `<option value="${value}">${priority}</option>`;
   });
   todoPriority.innerHTML = 'options';
+
+  const todoSubmit = document.createElement('input');
+  todoSubmit.setAttribute('type', 'submit');
+  todoSubmit.className = 'todo-form-submit';
+
+  todoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
+
+  todoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const newTodo = new Todo(title, description, priority, dueDate);
+    currentProject.addTodo(newTodo);
+
+  })
 };
 
 
@@ -92,12 +105,11 @@ const createTodo = () => {
 
 class Todo {
 
-  constructor(title, description, priority, dueDate, completion = 'pending') {
+  constructor(title, description, priority, dueDate) {
     this.title = title;
     this.description = description;
     this.priority = priority;
     this.dueDate = dueDate;
-    this.completion = completion;
   }
 
   assignPriority = (givenPriority) => {
