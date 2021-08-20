@@ -10,7 +10,7 @@ export class Project {
   }
 
   getTodo = (todoTitle) => {
-    const myTodo;
+    let myTodo;
     todos.forEach((todo) => {
       if (todo.getTitle() === todoTitle) {
         myTodo = todo;
