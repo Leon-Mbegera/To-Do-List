@@ -93,3 +93,21 @@ const createTodo = () => {
   return todoForm
 };
 
+const showProjectTodos = () => {
+ 
+  const todoCard = document.createElement('div');
+  todoCard.className = 'todo-card';
+
+  const todoTitleProperty = document.createElement('h4');
+  todoTitleProperty.textContent = todo.title;
+
+  const todoDescProperty = document.createElement('p');
+  todoDesc.textContent = todo.description;
+
+  const todoDueDateProperty = document.createElement('p');
+  todoDueDateProperty.textContent = todo.dueDate;
+
+  const todoPriorityProperty = document.createElement('p');
+  todoPriorityProperty.textContent = `${todo.priority}`;
+};
+
