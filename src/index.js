@@ -10,7 +10,7 @@ const showProjects = () => {
     const newProjectCard = projectCard(project, idx);
     const projectSection = document.getElementById('all-projects');
     projectSection.append(newProjectCard);
-    const currentProject = newProjectCard
+    const currentProject = newProjectCard;
   });
 }
 
@@ -49,7 +49,7 @@ form.addEventListener('submit', (e)=> {
 
 let currentProject;
 // Build a todo 
-const createTodo = () => {
+const modifyTodo = (todo, project) => {
   const todoForm = document.createElement('form');
   const todoTitle  = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
@@ -102,12 +102,22 @@ const showProjectTodos = () => {
   todoTitleProperty.textContent = todo.title;
 
   const todoDescProperty = document.createElement('p');
-  todoDesc.textContent = todo.description;
+  todoDescProperty.textContent = todo.description;
 
   const todoDueDateProperty = document.createElement('p');
   todoDueDateProperty.textContent = todo.dueDate;
 
   const todoPriorityProperty = document.createElement('p');
   todoPriorityProperty.textContent = `${todo.priority}`;
-};
+
+  
+
+  const updateTodo = document.createElement('button');
+  updateTodo.innerHTML = 'change';
+  updateTodo.className = 'update-todo-btn';
+  updateTodo.addEventListener('click', () => {
+    modifyTodo(todo, project)
+  })
+
+}
 
