@@ -1,0 +1,9 @@
+body {
+  padding: 0.5rem 1rem;
+}
+
+header {
+  background-color:aquamarine;
+  height: 4rem;
+  text-align: center;
+}
