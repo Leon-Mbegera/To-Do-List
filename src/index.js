@@ -88,17 +88,6 @@ const todoDisplay = () => {
   return todoCard;
 }
 
-// Build a todo 
-const createTodo = (project) => {
-  const title = document.querySelector('.todo-title').value;
-  const description = document.querySelector('.todo-desc').value;
-  const priority = document.querySelector('.todo-priority'.value);
-  const dueDate = document.querySelector('.todo-dueDate'.value);
-  const todoObjects = new Todo(title, description, priority, dueDate);
-  project.addTodo(todoObjects);
-
-}
-
 
 // new todo creation form
 
@@ -139,11 +128,14 @@ const newTodoCreationForm = (project) => {
   const projectTodos = document.querySelector('#project-todos');
   projectTodos.append(newTodoForm);
 
-  newTodoForm.addEventListener('submit', (e) => {
+  newTodoForm.addEventListener('submit', (e, project) => {
     e.preventDefault();
-    const newTodo = new Todo(title, description, priority, dueDate);
-    currentProject.addTodo(newTodo);
+    const title = document.querySelector('.todo-title').value;
+    const description = document.querySelector('.todo-desc').value;
+    const priority = document.querySelector('.todo-priority'.value);
+    const dueDate = document.querySelector('.todo-dueDate'.value);
+    const newTodoValues = new Todo(title, description, priority, dueDate);
+    project.addTodo(newTodoValues);
   });
-  return todoForm
+  return newTodoForm;
 };
-
