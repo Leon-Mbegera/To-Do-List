@@ -51,14 +51,12 @@ form.addEventListener('submit', (e)=> {
   const projectName = title.value;
   const newProject = new Project(projectName);
   allProjects.push(newProject);
-  console.log(allProjects, 'asdfa')
   showProjects();
 });
 
 
-// Todo creation form
 
-const todoCreationForm = () => {
+const todoDisplay = () => {
  
   const todoCard = document.createElement('div');
   todoCard.className = 'todo-card';
@@ -102,29 +100,31 @@ const createTodo = (project) => {
 }
 
 
-// update a todo
-const modifyTodo = (todo, project) => {
-  const todoForm = document.createElement('form');
+// new todo creation form
+
+const newTodoCreationForm = (project) => {
+
+  const newTodoForm = document.createElement('form');
   const todoTitle  = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
-  todoTitle.className = 'todo-form-input';
+  todoTitle.className = 'todo-title';
 
   const todoDesc = document.createElement('input');
   todoDesc.setAttribute('type', 'text');
   todoDesc.setAttribute('placeholder', 'some description..');
-  todoDesc.className = 'todo-form-input';
+  todoDesc.className = 'todo-desc';
 
   const todoDueDate = document.createElement('input');
   todoDueDate.setAttribute('type', 'date');
   todoDueDate.setAttribute('placeholder', 'due date');
-  todoDueDate.className = 'todo-form-input';
+  todoDueDate.className = 'todo-priority';
 
-  const todoPriority = document.createElement('input');
-  todoPriority.setAttribute('type', 'select');
-  todoPriority.className = 'todo-form-input';
-  todoPriorities = ['Very high', 'High', 'Moderate', 'Low', 'Useless'];
+  const todoPriority = document.createElement('select');
+  todoPriority.setAttribute('id', 'priority');
+  todoPriority.className = 'todo-dueDate';
 
+  const todoPriorities = ['Very high', 'High', 'Moderate', 'Low', 'Useless'];
   const options = todoPriorities.map((priority) => {
     const value = priority.toLowerCase();
     return `<option value="${value}">${priority}</option>`;
@@ -135,11 +135,11 @@ const modifyTodo = (todo, project) => {
   todoSubmit.setAttribute('type', 'submit');
   todoSubmit.className = 'todo-form-submit';
 
-  todoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
+  newTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
   const projectTodos = document.querySelector('#project-todos');
-  projectTodos.append(todoForm);
+  projectTodos.append(newTodoForm);
 
-  todoForm.addEventListener('submit', (e) => {
+  newTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const newTodo = new Todo(title, description, priority, dueDate);
     currentProject.addTodo(newTodo);
