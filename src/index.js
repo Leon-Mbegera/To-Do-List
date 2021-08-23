@@ -20,7 +20,6 @@ const showProjects = () => {
 // function to create a project card
 const projectCard = (project, idx) => {
   const projectDiv = document.createElement('div');
-  projectDiv.style.margin = '0.5rem';
   projectDiv.textContent = project.title;
   projectDiv.dataset.index = idx;
   projectDiv.addEventListener('click', onProjectClick);
@@ -32,15 +31,15 @@ const onProjectClick = (e) => {
   const index = Number(projectDiv.dataset.index);
   const clickedProject = allProjects[index];
 
-  console.log(clickedProject)
   if (currentProject !== clickedProject) {
     currentProject = clickedProject;
     const todoSection = document.getElementById('project-todos');
     todoSection.innerHTML = '';
     currentProject.todos.forEach((todo) => {
       const todoCard = new Todo(title, description, priority, dueDate);
-      todoCard.append(todoSection);
-
+      todoCard.innerHTML = (todo.title, todo.description, todo.priority, todo.dueDate);
+      todoSection.append(todoCard);
+      return todoCard;
     });
   }
 }
