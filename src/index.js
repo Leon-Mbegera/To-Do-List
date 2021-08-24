@@ -80,10 +80,10 @@ currentProject.todos.forEach((todo) => {
   modifyTodoBtn.innerHTML = 'change';
   modifyTodoBtn.className = 'update-todo-btn';
   modifyTodoBtn.addEventListener('click', () => {
-    modifyTodo(todo, project)
+    modifyTodo(todo)
   });
 
-  todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, updateTodo);
+  todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn);
   todoSection.append(todoCard);
 });
 
@@ -141,27 +141,27 @@ const newTodoCreationForm = () => {
   return newTodoForm;
 };
 
-const modifyTodo = () => {
+const modifyTodo = (todo) => {
 
   const modifyTodoForm = document.createElement('form');
   const todoTitle  = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
-  todoTitle.id = 'todo-title';
+  todoTitle.id = 'todo-title-modify';
 
   const todoDesc = document.createElement('input');
   todoDesc.setAttribute('type', 'text');
   todoDesc.setAttribute('placeholder', 'some description..');
-  todoDesc.id = 'todo-desc';
+  todoDesc.id = 'todo-desc-modify';
 
   const todoDueDate = document.createElement('input');
   todoDueDate.setAttribute('type', 'date');
   todoDueDate.setAttribute('placeholder', 'due date');
-  todoDueDate.id = 'todo-priority';
+  todoDueDate.id = 'todo-priority-modify';
 
   const todoPriority = document.createElement('select');
   todoPriority.setAttribute('id', 'priority');
-  todoPriority.id = 'todo-dueDate';
+  todoPriority.id = 'todo-dueDate-modify';
 
   const todoPriorities = ['Very high', 'High', 'Moderate', 'Low', 'Useless'];
   const options = todoPriorities.map((priority) => {
@@ -172,19 +172,19 @@ const modifyTodo = () => {
 
   const todoSubmit = document.createElement('input');
   todoSubmit.setAttribute('type', 'submit');
-  todoSubmit.id = 'todo-form-submit';
+  todoSubmit.id = 'todo-form-submit-modify';
 
   modifyTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
   projectTodos.append(modifyTodoForm);
 
-  modifyTodoForm.addEventListener('submit', (e, todo) => {
+  modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    todo.title = document.getElementById('todo-title').value; 
-    todo.description = document.getElementById('todo-desc').value;
-    todo.priority = document.getElementById('todo-priority').value;
-    todo.dueDate = document.getElementById('todo-dueDate').value;
-    todo.modifiedTodoValues = new Todo(title, description, priority, dueDate);
-    currentProject.addTodo(modifiedTodoValues);
+    console.log(todo);
+    todo.title = document.getElementById('todo-title-modify').value; 
+    todo.description = document.getElementById('todo-desc-modify').value;
+    todo.priority = document.getElementById('todo-priority-modify').value;
+    todo.dueDate = document.getElementById('todo-dueDate-modify').value;
+    console.log(todo.title);
     showTodos(currentProject);
   });
   return modifyTodoForm;
