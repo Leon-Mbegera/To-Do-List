@@ -126,7 +126,7 @@ const newTodoCreationForm = () => {
     const value = priority.toLowerCase();
     return `<option value="${value}">${priority}</option>`;
   });
-  todoPriority.innerHTML = 'options';
+  todoPriority.innerHTML = options;
 
   const todoSubmit = document.createElement('input');
   todoSubmit.setAttribute('type', 'submit');
