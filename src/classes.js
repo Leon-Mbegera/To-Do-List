@@ -6,13 +6,13 @@ export class Project {
   }
 
   addTodo = (todo) => {
-    todos.push(todo);
+    this.todos.push(todo);
   }
 
   getTodo = (todoTitle) => {
     let myTodo;
-    todos.forEach((todo) => {
-      if (todo.getTitle() === todoTitle) {
+    this.todos.forEach((todo) => {
+      if (todo.Title() === todoTitle) {
         myTodo = todo;
       }
     });
@@ -20,8 +20,8 @@ export class Project {
   }
 
   deleteTodo = (todoTitle) => {
-    todos.forEach((todo, idx) => {
-      if (todo.getTitle() === todoTitle) {
+    this.todos.forEach((todo, idx) => {
+      if (todo.title === todoTitle) {
         todos.splice(idx, 1);
       }
     });
