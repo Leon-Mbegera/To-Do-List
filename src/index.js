@@ -177,5 +177,15 @@ const modifyTodo = () => {
   modifyTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
   projectTodos.append(modifyTodoForm);
 
-
+  modifyTodoForm.addEventListener('submit', (e, todo) => {
+    e.preventDefault();
+    todo.title = document.getElementById('todo-title').value; 
+    todo.description = document.getElementById('todo-desc').value;
+    todo.priority = document.getElementById('todo-priority').value;
+    todo.dueDate = document.getElementById('todo-dueDate').value;
+    todo.modifiedTodoValues = new Todo(title, description, priority, dueDate);
+    currentProject.addTodo(modifiedTodoValues);
+    showTodos(currentProject);
+  });
+  return modifyTodoForm;
 }
