@@ -7,3 +7,13 @@ header {
   height: 4rem;
   text-align: center;
 }
+
+#project-todos {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+#project-todos > div {
+  margin-right: 4rem;
+}
