@@ -53,7 +53,7 @@ form.addEventListener('submit', (e)=> {
 
 
 
-const showTodos = ( currentProject) => {
+const showTodos = (currentProject) => {
 todoSection.innerHTML = '';
 currentProject.todos.forEach((todo) => {
   
@@ -80,6 +80,8 @@ currentProject.todos.forEach((todo) => {
   modifyTodoBtn.innerHTML = 'change';
   modifyTodoBtn.className = 'update-todo-btn';
   modifyTodoBtn.addEventListener('click', () => {
+    const newTodoForm = document.getElementById('new-todo-creation-form');
+    newTodoForm.remove();
     modifyTodo(todo)
   });
 
@@ -102,6 +104,7 @@ currentProject.todos.forEach((todo) => {
 const newTodoCreationForm = () => {
 
   const newTodoForm = document.createElement('form');
+  newTodoForm.id = 'new-todo-creation-form';
   const todoTitle  = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
