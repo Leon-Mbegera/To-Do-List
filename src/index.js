@@ -83,12 +83,19 @@ currentProject.todos.forEach((todo) => {
     modifyTodo(todo)
   });
 
-  todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn);
+  const deleteTodoBtn = document.createElement('button');
+  deleteTodoBtn.innerText = 'delete';
+  deleteTodoBtn.addEventListener('click', () => {
+    const todoIdx = currentProject.todos.indexOf(todo);
+    currentProject.todos.splice(todoIdx, 1);
+    todoSection.innerHTML = '';
+    showTodos(currentProject);
+  });
+
+  todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
   todoSection.append(todoCard);
 });
-
 }
-
 
 // new todo creation form
 
