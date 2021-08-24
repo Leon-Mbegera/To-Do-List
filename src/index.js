@@ -3,6 +3,7 @@ import { Project, Todo }  from './classes.js'
 const allProjects = [ new Project('default')];
 let currentProject = allProjects[0];
 const todoSection = document.getElementById('project-todos');
+const projectTodos = document.getElementById('todo-creation-form');
 
 // Loop thru each project and display it
 
@@ -75,10 +76,10 @@ currentProject.todos.forEach((todo) => {
   todoPriorityProperty.textContent = `${todo.priority}`;
   todoPriorityProperty.className = 'todo-priority';
 
-  const updateTodo = document.createElement('button');
-  updateTodo.innerHTML = 'change';
-  updateTodo.className = 'update-todo-btn';
-  updateTodo.addEventListener('click', () => {
+  const modifyTodoBtn = document.createElement('button');
+  modifyTodoBtn.innerHTML = 'change';
+  modifyTodoBtn.className = 'update-todo-btn';
+  modifyTodoBtn.addEventListener('click', () => {
     modifyTodo(todo, project)
   });
 
@@ -125,20 +126,56 @@ const newTodoCreationForm = () => {
   todoSubmit.id = 'todo-form-submit';
 
   newTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
-  const projectTodos = document.getElementById('todo-creation-form');
   projectTodos.append(newTodoForm);
 
   newTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const title = document.getElementById('todo-title').value;
-    
+    const title = document.getElementById('todo-title').value; 
     const description = document.getElementById('todo-desc').value;
     const priority = document.getElementById('todo-priority').value;
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
-    console.log(title, description, priority, dueDate);
     currentProject.addTodo(newTodoValues);
     showTodos(currentProject);
   });
   return newTodoForm;
 };
+
+const modifyTodo = () => {
+
+  const modifyTodoForm = document.createElement('form');
+  const todoTitle  = document.createElement('input');
+  todoTitle.setAttribute('type', 'text');
+  todoTitle.setAttribute('placeholder', 'todo title');
+  todoTitle.id = 'todo-title';
+
+  const todoDesc = document.createElement('input');
+  todoDesc.setAttribute('type', 'text');
+  todoDesc.setAttribute('placeholder', 'some description..');
+  todoDesc.id = 'todo-desc';
+
+  const todoDueDate = document.createElement('input');
+  todoDueDate.setAttribute('type', 'date');
+  todoDueDate.setAttribute('placeholder', 'due date');
+  todoDueDate.id = 'todo-priority';
+
+  const todoPriority = document.createElement('select');
+  todoPriority.setAttribute('id', 'priority');
+  todoPriority.id = 'todo-dueDate';
+
+  const todoPriorities = ['Very high', 'High', 'Moderate', 'Low', 'Useless'];
+  const options = todoPriorities.map((priority) => {
+    const value = priority.toLowerCase();
+    return `<option value="${value}">${priority}</option>`;
+  });
+  todoPriority.innerHTML = 'options';
+
+  const todoSubmit = document.createElement('input');
+  todoSubmit.setAttribute('type', 'submit');
+  todoSubmit.id = 'todo-form-submit';
+
+  modifyTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
+  projectTodos.append(modifyTodoForm);
+
+
+}
