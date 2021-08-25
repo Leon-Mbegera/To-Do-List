@@ -18,12 +18,17 @@ const showProjects = () => {
 }
 
 // function to create a project card
+
+const projectExists = (projectName) => {
+  return allProjects.find((project) => project.title === projectName);
+}
+
 const projectCard = (project, idx) => {
-  const projectDiv = document.createElement('div');
-  projectDiv.textContent = project.title;
-  projectDiv.dataset.index = idx;
-  projectDiv.addEventListener('click', onProjectClick);
-  return projectDiv;
+    const projectDiv = document.createElement('div');
+    projectDiv.textContent = project.title;
+    projectDiv.dataset.index = idx;
+    projectDiv.addEventListener('click', onProjectClick);
+    return projectDiv;
 }
 
 
@@ -47,8 +52,21 @@ const form = document.getElementById('input-form');
 form.addEventListener('submit', (e)=> {
   e.preventDefault();
   const projectName = title.value;
+  if(projectExists(projectName)) {
+    alert('Project name already taken!');
+  } else {
   const newProject = new Project(projectName);
   allProjects.push(newProject);
+  showProjects();
+  }
+});
+
+const projectDltBtn = document.createElement('button');
+projectDltBtn.innerText = 'delete';
+projectDltBtn.id = 'project-dlt-btn';
+projectDltBtn.addEventListener('click', () => {
+  projectIdx = allProjects.indexOf(currentProject);
+  allProjects.splice(projectIdx, 1);
   showProjects();
 });
 
@@ -88,6 +106,7 @@ currentProject.todos.forEach((todo) => {
 
   const deleteTodoBtn = document.createElement('button');
   deleteTodoBtn.innerText = 'delete';
+  deleteTodoBtn.id = 'todo-dlt-btn';
   deleteTodoBtn.addEventListener('click', () => {
     const todoIdx = currentProject.todos.indexOf(todo);
     currentProject.todos.splice(todoIdx, 1);

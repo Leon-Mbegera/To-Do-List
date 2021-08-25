@@ -18,14 +18,6 @@ export class Project {
     });
     return myTodo;
   }
-
-  deleteTodo = (todoTitle) => {
-    this.todos.forEach((todo, idx) => {
-      if (todo.title === todoTitle) {
-        todos.splice(idx, 1);
-      }
-    });
-  }
 }
 
 export class Todo {
