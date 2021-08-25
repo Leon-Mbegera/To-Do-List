@@ -13,12 +13,13 @@ header {
 
 #project-todos {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   margin-bottom: 2rem;
 }
 
 #project-todos > div {
-  margin-right: 4rem;
+  margin-right: 3rem;
 }
 
 #todo-title, #todo-desc, #todo-dueDate, #todo-priority, #todo-title-modify, #todo-desc-modify, #todo-dueDate-modify, 
@@ -33,4 +34,10 @@ header {
   color:aliceblue;
   font-weight: bold;
   border-radius: 3px;
+}
+
+.todo-card {
+  border: 2px solid purple;
+  border-radius: 3px;
+  padding: 0.8rem 3rem 0.8rem 0.8rem;
 }
