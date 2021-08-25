@@ -17,7 +17,6 @@ const showProjects = () => {
   });
 }
 
-
 // function to create a project card
 const projectCard = (project, idx) => {
   const projectDiv = document.createElement('div');
@@ -26,6 +25,7 @@ const projectCard = (project, idx) => {
   projectDiv.addEventListener('click', onProjectClick);
   return projectDiv;
 }
+
 
 const onProjectClick = (e) => {
   const projectDiv = e.target;
@@ -40,6 +40,7 @@ const onProjectClick = (e) => {
   }
   return projectDiv;
 }
+showProjects();
 
 // Add an event listener for project creation and push it into all projects
 const form = document.getElementById('input-form');
@@ -77,7 +78,7 @@ currentProject.todos.forEach((todo) => {
   todoPriorityProperty.className = 'todo-priority';
 
   const modifyTodoBtn = document.createElement('button');
-  modifyTodoBtn.innerHTML = 'change';
+  modifyTodoBtn.innerHTML = 'Edit';
   modifyTodoBtn.className = 'update-todo-btn';
   modifyTodoBtn.addEventListener('click', () => {
     const newTodoForm = document.getElementById('new-todo-creation-form');
@@ -136,6 +137,7 @@ const newTodoCreationForm = () => {
   todoSubmit.id = 'todo-form-submit';
 
   newTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
+  projectTodos.innerHTML = '';
   projectTodos.append(newTodoForm);
 
   newTodoForm.addEventListener('submit', (e) => {
@@ -178,9 +180,10 @@ const modifyTodo = (todo) => {
     const value = priority.toLowerCase();
     return `<option value="${value}">${priority}</option>`;
   });
-  todoPriority.innerHTML = 'options';
+  todoPriority.innerHTML = options;
 
   const todoSubmit = document.createElement('input');
+  todoSubmit.value = 'Edit';
   todoSubmit.setAttribute('type', 'submit');
   todoSubmit.id = 'todo-form-submit-modify';
 
@@ -194,7 +197,8 @@ const modifyTodo = (todo) => {
     todo.description = document.getElementById('todo-desc-modify').value;
     todo.priority = document.getElementById('todo-priority-modify').value;
     todo.dueDate = document.getElementById('todo-dueDate-modify').value;
-    console.log(todo.title);
+    const todoSubmit = document.getElementById('todo-form-submit-modify');
+    todoSubmit.value = 'Submit';
     showTodos(currentProject);
   });
   return modifyTodoForm;
