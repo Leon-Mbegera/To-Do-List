@@ -25,7 +25,7 @@ header {
   border-radius: 3px;
 }
 
-#todo-form-submit, #todo-form-submit-modify {
+#todo-form-submit, #todo-form-submit-modify, #project-submit-btn, #todo-dlt-btn, .update-todo-btn {
   background-color: blueviolet;
   color:aliceblue;
   font-weight: bold;
