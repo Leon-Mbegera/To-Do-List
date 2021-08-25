@@ -70,8 +70,6 @@ projectDltBtn.addEventListener('click', () => {
   showProjects();
 });
 
-
-
 const showTodos = (currentProject) => {
 todoSection.innerHTML = '';
 currentProject.todos.forEach((todo) => {
