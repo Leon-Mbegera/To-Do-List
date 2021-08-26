@@ -47,6 +47,12 @@ const onProjectClick = (e) => {
 }
 showProjects();
 
+const addProjectToLocalStorage = (newProject) => {
+  const localStorageProjects = getProjectsFromLocalStorage();
+  localStorageProjects.push(newProject)
+  localStorage.setItem('localStorageProjects', JSON.stringify(localStorageProjects));
+};
+
 // Add an event listener for project creation and push it into all projects
 const form = document.getElementById('input-form');
 form.addEventListener('submit', (e)=> {
@@ -61,14 +67,6 @@ form.addEventListener('submit', (e)=> {
   }
 });
 
-const projectDltBtn = document.createElement('button');
-projectDltBtn.innerText = 'delete';
-projectDltBtn.id = 'project-dlt-btn';
-projectDltBtn.addEventListener('click', () => {
-  projectIdx = allProjects.indexOf(currentProject);
-  allProjects.splice(projectIdx, 1);
-  showProjects();
-});
 
 const showTodos = (currentProject) => {
 todoSection.innerHTML = '';
@@ -173,6 +171,7 @@ const newTodoCreationForm = () => {
 const modifyTodo = (todo) => {
 
   const modifyTodoForm = document.createElement('form');
+  modifyTodoForm.id = 'modify-todo-form';
   const todoTitle  = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
@@ -200,7 +199,7 @@ const modifyTodo = (todo) => {
   todoPriority.innerHTML = options;
 
   const todoSubmit = document.createElement('input');
-  todoSubmit.value = 'Edit';
+  todoSubmit.value = 'Update Todo';
   todoSubmit.setAttribute('type', 'submit');
   todoSubmit.id = 'todo-form-submit-modify';
 
@@ -209,14 +208,17 @@ const modifyTodo = (todo) => {
 
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log(todo);
     todo.title = document.getElementById('todo-title-modify').value; 
     todo.description = document.getElementById('todo-desc-modify').value;
     todo.priority = document.getElementById('todo-priority-modify').value;
     todo.dueDate = document.getElementById('todo-dueDate-modify').value;
-    const todoSubmit = document.getElementById('todo-form-submit-modify');
-    todoSubmit.value = 'Submit';
     showTodos(currentProject);
+    const modifyTodoForm = document.getElementById('modify-todo-form');
+    modifyTodoForm.remove();
+    newTodoCreationForm();
+
   });
   return modifyTodoForm;
 }
+
+
