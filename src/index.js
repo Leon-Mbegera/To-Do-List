@@ -80,50 +80,53 @@ form.addEventListener('submit', (e)=> {
 
 
 const showTodos = (currentProject) => {
-todoSection.innerHTML = '';
-currentProject.todos.forEach((todo) => {
-  
-  const todoCard = document.createElement('div');
-  todoCard.className = 'todo-card';
+  todoSection.innerHTML = '';
+  allProjects = getProjectsFromLocalStorage();
+  const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
+  currentProject = allProjects[currentProjectIdx];
+  currentProject.todos.forEach((todo) => {
+    
+    const todoCard = document.createElement('div');
+    todoCard.className = 'todo-card';
 
-  const todoTitleProperty = document.createElement('h4');
-  todoTitleProperty.textContent = todo.title;
-  todoTitleProperty.className = 'todo-title';
+    const todoTitleProperty = document.createElement('h4');
+    todoTitleProperty.textContent = todo.title;
+    todoTitleProperty.className = 'todo-title';
 
-  const todoDescProperty = document.createElement('p');
-  todoDescProperty.textContent = todo.description;
-  todoDescProperty.className = 'todo-desc';
+    const todoDescProperty = document.createElement('p');
+    todoDescProperty.textContent = todo.description;
+    todoDescProperty.className = 'todo-desc';
 
-  const todoDueDateProperty = document.createElement('p');
-  todoDueDateProperty.textContent = todo.dueDate;
-  todoDueDateProperty.className = 'todo-dueDate';
+    const todoDueDateProperty = document.createElement('p');
+    todoDueDateProperty.textContent = todo.dueDate;
+    todoDueDateProperty.className = 'todo-dueDate';
 
-  const todoPriorityProperty = document.createElement('p');
-  todoPriorityProperty.textContent = `${todo.priority}`;
-  todoPriorityProperty.className = 'todo-priority';
+    const todoPriorityProperty = document.createElement('p');
+    todoPriorityProperty.textContent = `${todo.priority}`;
+    todoPriorityProperty.className = 'todo-priority';
 
-  const modifyTodoBtn = document.createElement('button');
-  modifyTodoBtn.innerHTML = 'Edit';
-  modifyTodoBtn.className = 'update-todo-btn';
-  modifyTodoBtn.addEventListener('click', () => {
-    const newTodoForm = document.getElementById('new-todo-creation-form');
-    newTodoForm.remove();
-    modifyTodo(todo)
+    const modifyTodoBtn = document.createElement('button');
+    modifyTodoBtn.innerHTML = 'Edit';
+    modifyTodoBtn.className = 'update-todo-btn';
+    modifyTodoBtn.addEventListener('click', () => {
+      const newTodoForm = document.getElementById('new-todo-creation-form');
+      newTodoForm.remove();
+      modifyTodo(todo)
+    });
+
+    const deleteTodoBtn = document.createElement('button');
+    deleteTodoBtn.innerText = 'delete';
+    deleteTodoBtn.id = 'todo-dlt-btn';
+    deleteTodoBtn.addEventListener('click', () => {
+      const currentTodoIdx = currentProject.todos.findIndex( (eachTodo)=>eachTodo.title === todo.title);
+      currentProject.todos.splice(currentTodoIdx, 1);
+      localStorage.setItem('allProjects', JSON.stringify(allProjects));
+      showTodos(currentProject);
+    });
+
+    todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
+    todoSection.append(todoCard);
   });
-
-  const deleteTodoBtn = document.createElement('button');
-  deleteTodoBtn.innerText = 'delete';
-  deleteTodoBtn.id = 'todo-dlt-btn';
-  deleteTodoBtn.addEventListener('click', () => {
-    const todoIdx = currentProject.todos.indexOf(todo);
-    currentProject.todos.splice(todoIdx, 1);
-    todoSection.innerHTML = '';
-    showTodos(currentProject);
-  });
-
-  todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
-  todoSection.append(todoCard);
-});
 }
 
 // new todo creation form
