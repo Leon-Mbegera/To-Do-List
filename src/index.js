@@ -1,6 +1,6 @@
-import { Project, Todo }  from './classes.js'
+import { Project, Todo } from './classes.js';
 
-let allProjects = [ new Project('default')];
+let allProjects = [new Project('default')];
 let currentProject = allProjects[0];
 const todoSection = document.getElementById('project-todos');
 const projectTodos = document.getElementById('todo-creation-form');
@@ -9,7 +9,7 @@ const projectTodos = document.getElementById('todo-creation-form');
 const getProjectsFromLocalStorage = () => {
   const localStorageProjects = localStorage.getItem('allProjects');
   if (localStorageProjects === null) {
-    allProjects = [ new Project('default')];
+    allProjects = [new Project('default')];
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
   } else {
     allProjects = JSON.parse(localStorageProjects);
@@ -26,66 +26,63 @@ const showProjects = () => {
     const newProjectCard = projectCard(project, idx);
     projectSection.append(newProjectCard);
   });
-}
+};
 
 // function to create a project card
 
 const projectExists = (projectName) => {
   allProjects = getProjectsFromLocalStorage();
   return allProjects.find((project) => project.title === projectName);
-}
+};
 
 const projectCard = (project, idx) => {
-    const projectDiv = document.createElement('a');
-    projectDiv.id = 'project-div';
-    projectDiv.textContent = project.title;
-    projectDiv.dataset.index = idx;
-    projectDiv.addEventListener('click', onProjectClick);
-    return projectDiv;
-}
-
+  const projectDiv = document.createElement('a');
+  projectDiv.id = 'project-div';
+  projectDiv.textContent = project.title;
+  projectDiv.dataset.index = idx;
+  projectDiv.addEventListener('click', onProjectClick);
+  return projectDiv;
+};
 
 const onProjectClick = (e) => {
   const projectDiv = e.target;
   const index = Number(projectDiv.dataset.index);
   allProjects = getProjectsFromLocalStorage();
-    currentProject = allProjects[index];
-    todoSection.innerHTML = '';
-    showTodos(currentProject);
-    newTodoCreationForm(currentProject);
+  currentProject = allProjects[index];
+  todoSection.innerHTML = '';
+  showTodos(currentProject);
+  newTodoCreationForm(currentProject);
   return projectDiv;
-}
+};
 
 showProjects();
 
 const addProjectToLocalStorage = (newProject) => {
   const allProjects = getProjectsFromLocalStorage();
-  allProjects.push(newProject)
+  allProjects.push(newProject);
   localStorage.setItem('allProjects', JSON.stringify(allProjects));
 };
 
 // Add an event listener for project creation and push it into all projects
 const form = document.getElementById('input-form');
-form.addEventListener('submit', (e)=> {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   const projectName = title.value;
-  if(projectExists(projectName)) {
+  if (projectExists(projectName)) {
     alert('Project name already taken!');
   } else {
-  const newProject = new Project(projectName);
-  addProjectToLocalStorage(newProject);
-  showProjects();
+    const newProject = new Project(projectName);
+    addProjectToLocalStorage(newProject);
+    showProjects();
   }
 });
-
 
 const showTodos = (currentProject) => {
   todoSection.innerHTML = '';
   allProjects = getProjectsFromLocalStorage();
-  const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
+  const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
   currentProject = allProjects[currentProjectIdx];
   currentProject.todos.forEach((todo) => {
-    
     const todoCard = document.createElement('div');
     todoCard.className = 'todo-card';
 
@@ -111,14 +108,14 @@ const showTodos = (currentProject) => {
     modifyTodoBtn.addEventListener('click', () => {
       const newTodoForm = document.getElementById('new-todo-creation-form');
       newTodoForm.remove();
-      modifyTodo(todo)
+      modifyTodo(todo);
     });
 
     const deleteTodoBtn = document.createElement('button');
     deleteTodoBtn.innerText = 'delete';
     deleteTodoBtn.id = 'todo-dlt-btn';
     deleteTodoBtn.addEventListener('click', () => {
-      const currentTodoIdx = currentProject.todos.findIndex( (eachTodo)=>eachTodo.title === todo.title);
+      const currentTodoIdx = currentProject.todos.findIndex((eachTodo) => eachTodo.title === todo.title);
       currentProject.todos.splice(currentTodoIdx, 1);
       localStorage.setItem('allProjects', JSON.stringify(allProjects));
       showTodos(currentProject);
@@ -127,15 +124,14 @@ const showTodos = (currentProject) => {
     todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
     todoSection.append(todoCard);
   });
-}
+};
 
 // new todo creation form
 
 const newTodoCreationForm = () => {
-
   const newTodoForm = document.createElement('form');
   newTodoForm.id = 'new-todo-creation-form';
-  const todoTitle  = document.createElement('input');
+  const todoTitle = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
   todoTitle.id = 'todo-title';
@@ -171,14 +167,14 @@ const newTodoCreationForm = () => {
 
   newTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    const title = document.getElementById('todo-title').value; 
+    const title = document.getElementById('todo-title').value;
     const description = document.getElementById('todo-desc').value;
     const priority = document.getElementById('todo-priority').value;
     const dueDate = document.getElementById('todo-dueDate').value;
-    const newTodoValues = new Todo(title, description, priority, dueDate); 
+    const newTodoValues = new Todo(title, description, priority, dueDate);
     allProjects = getProjectsFromLocalStorage();
-    const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
-    allProjects[currentProjectIdx].todos.push(newTodoValues)
+    const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
+    allProjects[currentProjectIdx].todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
     showTodos(currentProject);
   });
@@ -186,10 +182,9 @@ const newTodoCreationForm = () => {
 };
 
 const modifyTodo = (todo) => {
-
   const modifyTodoForm = document.createElement('form');
   modifyTodoForm.id = 'modify-todo-form';
-  const todoTitle  = document.createElement('input');
+  const todoTitle = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
   todoTitle.setAttribute('placeholder', 'todo title');
   todoTitle.id = 'todo-title-modify';
@@ -226,10 +221,10 @@ const modifyTodo = (todo) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     allProjects = getProjectsFromLocalStorage();
-    const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
-    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex( (eachTodo)=>eachTodo.title === todo.title);
+    const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
+    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex((eachTodo) => eachTodo.title === todo.title);
     const currentTodo = allProjects[currentProjectIdx].todos[currentTodoIdx];
-    currentTodo.title = document.getElementById('todo-title-modify').value; 
+    currentTodo.title = document.getElementById('todo-title-modify').value;
     currentTodo.description = document.getElementById('todo-desc-modify').value;
     currentTodo.priority = document.getElementById('todo-priority-modify').value;
     currentTodo.dueDate = document.getElementById('todo-dueDate-modify').value;
@@ -240,11 +235,10 @@ const modifyTodo = (todo) => {
     newTodoCreationForm();
   });
   return modifyTodoForm;
-}
- 
+};
+
 const localStorageOnLoad = () => {
   showProjects();
-}
+};
 
 document.addEventListener('DOMContentLoaded', localStorageOnLoad);
-

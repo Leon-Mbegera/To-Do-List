@@ -1,5 +1,4 @@
 export class Project {
-
   constructor(title) {
     this.title = title;
     this.todos = [];
@@ -29,6 +28,6 @@ export class Todo {
   }
 
   assignPriority = (givenPriority) => {
-    priority = givenPriority
+    priority = givenPriority;
   }
 }
