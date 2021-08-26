@@ -11,6 +11,12 @@ header {
   text-align: center;
 }
 
+h4 {
+  text-decoration: underline;
+  width: auto;
+  color:  blueviolet;
+}
+
 #project-todos {
   display: flex;
   flex-wrap: wrap;
