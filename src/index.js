@@ -36,7 +36,8 @@ const projectExists = (projectName) => {
 }
 
 const projectCard = (project, idx) => {
-    const projectDiv = document.createElement('div');
+    const projectDiv = document.createElement('a');
+    projectDiv.id = 'project-div';
     projectDiv.textContent = project.title;
     projectDiv.dataset.index = idx;
     projectDiv.addEventListener('click', onProjectClick);
@@ -176,8 +177,6 @@ const newTodoCreationForm = () => {
     const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
     allProjects[currentProjectIdx].todos.push(newTodoValues)
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
-    const todosHeader = document.getElementById('project-name');
-    todosHeader.innerHTML = currentProject.title;
     showTodos(currentProject);
   });
   return newTodoForm;
@@ -223,10 +222,15 @@ const modifyTodo = (todo) => {
 
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    todo.title = document.getElementById('todo-title-modify').value; 
-    todo.description = document.getElementById('todo-desc-modify').value;
-    todo.priority = document.getElementById('todo-priority-modify').value;
-    todo.dueDate = document.getElementById('todo-dueDate-modify').value;
+    allProjects = getProjectsFromLocalStorage();
+    const currentProjectIdx = allProjects.findIndex( (project)=>project.title === currentProject.title);
+    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex( (eachTodo)=>eachTodo.title === todo.title);
+    const currentTodo = allProjects[currentProjectIdx].todos[currentTodoIdx];
+    currentTodo.title = document.getElementById('todo-title-modify').value; 
+    currentTodo.description = document.getElementById('todo-desc-modify').value;
+    currentTodo.priority = document.getElementById('todo-priority-modify').value;
+    currentTodo.dueDate = document.getElementById('todo-dueDate-modify').value;
+    localStorage.setItem('allProjects', JSON.stringify(allProjects));
     showTodos(currentProject);
     const modifyTodoForm = document.getElementById('modify-todo-form');
     modifyTodoForm.remove();
@@ -234,7 +238,7 @@ const modifyTodo = (todo) => {
   });
   return modifyTodoForm;
 }
-
+ 
 const localStorageOnLoad = () => {
   showProjects();
 }
