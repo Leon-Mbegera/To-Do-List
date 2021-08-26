@@ -10,6 +10,8 @@ const projectTodos = document.getElementById('todo-creation-form');
 
 const showProjects = () => {
   const projectSection = document.getElementById('all-projects');
+  const projectsFromLocalStorage = getProjectsFromLocalStorage();
+  allProjects.push(projectsFromLocalStorage);
   projectSection.innerHTML = '';
   allProjects.forEach((project, idx) => {
     const newProjectCard = projectCard(project, idx);
@@ -60,8 +62,8 @@ const getProjectsFromLocalStorage = () => {
 
 
 const addProjectToLocalStorage = (newProject) => {
-  const localStorageProjects = getProjectsFromLocalStorage();
-  localStorageProjects.push(newProject)
+  const allProjects = getProjectsFromLocalStorage();
+  allProjects.push(newProject)
   localStorage.setItem('localStorageProjects', JSON.stringify(localStorageProjects));
 };
 
