@@ -46,6 +46,18 @@ const onProjectClick = (e) => {
   return projectDiv;
 }
 showProjects();
+const getProjectsFromLocalStorage = () => {
+  const allProjects = [ new Project('default')];
+  const localStorageProjects = localStorage.getItem('allProjects');
+  if (localStorageProjects.length === 1) {
+    localStorage.setItem('allProjects', JSON.stringify(allProjects));
+    allProjects = JSON.parse(allProjects);
+  } else {
+    allProjects = JSON.parse(localStorageProjects);
+  }
+  return allProjects;
+};
+
 
 const addProjectToLocalStorage = (newProject) => {
   const localStorageProjects = getProjectsFromLocalStorage();
@@ -62,7 +74,7 @@ form.addEventListener('submit', (e)=> {
     alert('Project name already taken!');
   } else {
   const newProject = new Project(projectName);
-  allProjects.push(newProject);
+  addProjectToLocalStorage(newProject);
   showProjects();
   }
 });
@@ -216,7 +228,6 @@ const modifyTodo = (todo) => {
     const modifyTodoForm = document.getElementById('modify-todo-form');
     modifyTodoForm.remove();
     newTodoCreationForm();
-
   });
   return modifyTodoForm;
 }
