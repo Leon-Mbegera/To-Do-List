@@ -2,7 +2,7 @@ import Project from './project.js';
 import Todo from './todo.js';
 
 let allProjects = [new Project('default')];
-let currentProject = allProjects[0];
+let currentPrj = allProjects[0];
 const todoSection = document.getElementById('project-todos');
 const projectTodos = document.getElementById('todo-creation-form');
 
@@ -58,15 +58,19 @@ const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     allProjects = getProjectsFromLocalStorage();
-    const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
-    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex((eachTodo) => eachTodo.title === todo.title);
-    const currentTodo = allProjects[currentProjectIdx].todos[currentTodoIdx];
+    const currentPrjIdx = allProjects.findIndex(
+      (project) => project.title === currentPrj.title,
+    );
+    const currentTdIdx = allProjects[currentPrjIdx].todos.findIndex(
+      (eTodo) => eTodo.title === todo.title,
+    );
+    const currentTodo = allProjects[currentPrjIdx].todos[currentTdIdx];
     currentTodo.title = document.getElementById('todo-title-modify').value;
     currentTodo.description = document.getElementById('todo-desc-modify').value;
     currentTodo.priority = document.getElementById('todo-priority-modify').value;
     currentTodo.dueDate = document.getElementById('todo-dueDate-modify').value;
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
-    showTodos(currentProject, newTodoCreationForm);
+    showTodos(currentPrj, newTodoCreationForm);
     const modifyTodoForm = document.getElementById('modify-todo-form');
     modifyTodoForm.remove();
     newTodoCreationForm(showTodos);
@@ -74,13 +78,13 @@ const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   return modifyTodoForm;
 };
 
-const showTodos = (currentProject, newTodoCreationForm) => {
+const showTodos = (currentPrj, newTodoCreationForm) => {
   todoSection.innerHTML = '';
   allProjects = getProjectsFromLocalStorage();
-  const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
-  currentProject = allProjects[currentProjectIdx];
+  const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+  currentPrj = allProjects[currentPrjIdx];
 
-  currentProject.todos.forEach((todo) => {
+  currentPrj.todos.forEach((todo) => {
     const todoCard = document.createElement('div');
     todoCard.className = 'todo-card';
 
@@ -113,13 +117,15 @@ const showTodos = (currentProject, newTodoCreationForm) => {
     deleteTodoBtn.innerText = 'delete';
     deleteTodoBtn.id = 'todo-dlt-btn';
     deleteTodoBtn.addEventListener('click', () => {
-      const currentTodoIdx = currentProject.todos.findIndex((eachTodo) => eachTodo.title === todo.title);
-      currentProject.todos.splice(currentTodoIdx, 1);
+      const currentTdIdx = currentPrj.todos.findIndex((eTodo) => eTodo.title === todo.title);
+      currentPrj.todos.splice(currentTdIdx, 1);
       localStorage.setItem('allProjects', JSON.stringify(allProjects));
-      showTodos(currentProject, newTodoCreationForm);
+      showTodos(currentPrj, newTodoCreationForm);
     });
 
-    todoCard.append(todoTitleProperty, todoDescProperty, todoPriorityProperty, todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
+    todoCard.append(todoTitleProperty, todoDescProperty,
+      todoPriorityProperty,
+      todoDueDateProperty, modifyTodoBtn, deleteTodoBtn);
     todoSection.append(todoCard);
   });
 };
@@ -128,9 +134,9 @@ const onProjectClick = (e, newTodoCreationForm) => {
   const projectDiv = e.target;
   const index = Number(projectDiv.dataset.index);
   allProjects = getProjectsFromLocalStorage();
-  currentProject = allProjects[index];
+  currentPrj = allProjects[index];
   todoSection.innerHTML = '';
-  showTodos(currentProject, newTodoCreationForm);
+  showTodos(currentPrj, newTodoCreationForm);
   newTodoCreationForm(showTodos);
   return projectDiv;
 };
@@ -180,10 +186,10 @@ const newTodoCreationForm = (showTodos) => {
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
     allProjects = getProjectsFromLocalStorage();
-    const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
-    allProjects[currentProjectIdx].todos.push(newTodoValues);
+    const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+    allProjects[currentPrjIdx].todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
-    showTodos(currentProject, newTodoCreationForm);
+    showTodos(currentPrj, newTodoCreationForm);
   });
   return newTodoForm;
 };
