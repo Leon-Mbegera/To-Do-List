@@ -58,8 +58,12 @@ const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     allProjects = getProjectsFromLocalStorage();
-    const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
-    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex((eachTodo) => eachTodo.title === todo.title);
+    const currentProjectIdx = allProjects.findIndex((project) => {
+      return project.title === currentProject.title
+    });
+    const currentTodoIdx = allProjects[currentProjectIdx].todos.findIndex((eachTodo) => {
+      return eachTodo.title === todo.title
+      });
     const currentTodo = allProjects[currentProjectIdx].todos[currentTodoIdx];
     currentTodo.title = document.getElementById('todo-title-modify').value;
     currentTodo.description = document.getElementById('todo-desc-modify').value;
@@ -77,8 +81,11 @@ const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
 const showTodos = (currentProject) => {
   todoSection.innerHTML = '';
   allProjects = getProjectsFromLocalStorage();
-  const currentProjectIdx = allProjects.findIndex((project) => project.title === currentProject.title);
+  const currentProjectIdx = allProjects.findIndex((project) => {
+    return project.title === currentProject.title
+  });
   currentProject = allProjects[currentProjectIdx];
+
   currentProject.todos.forEach((todo) => {
     const todoCard = document.createElement('div');
     todoCard.className = 'todo-card';
@@ -105,7 +112,7 @@ const showTodos = (currentProject) => {
     modifyTodoBtn.addEventListener('click', () => {
       const newTodoForm = document.getElementById('new-todo-creation-form');
       newTodoForm.remove();
-      modifyTodo(todo);
+      modifyTodo(todo, showTodos, newTodoCreationForm);
     });
 
     const deleteTodoBtn = document.createElement('button');
@@ -130,7 +137,7 @@ const onProjectClick = (e, newTodoCreationForm) => {
   currentProject = allProjects[index];
   todoSection.innerHTML = '';
   showTodos(currentProject);
-  newTodoCreationForm(currentProject);
+  newTodoCreationForm(showTodos);
   return projectDiv;
 };
 
@@ -139,7 +146,9 @@ const projectCard = (project, idx) => {
   projectDiv.id = 'project-div';
   projectDiv.textContent = project.title;
   projectDiv.dataset.index = idx;
-  projectDiv.addEventListener('click', onProjectClick);
+  projectDiv.addEventListener('click', (e)=> {
+    onProjectClick(e, newTodoCreationForm)
+  });
   return projectDiv;
 };
 
@@ -185,7 +194,6 @@ form.addEventListener('submit', (e) => {
 });
 
 // new todo creation form
-/*eslint no-unused-vars: ["error", { "caughtErrorsIgnorePattern": "^ignore" }]*/
 const newTodoCreationForm = (showTodos) => {
   const newTodoForm = document.createElement('form');
   newTodoForm.id = 'new-todo-creation-form';
