@@ -6,7 +6,6 @@ let currentPrj = allProjects[0];
 const todoSection = document.getElementById('project-todos');
 const projectTodos = document.getElementById('todo-creation-form');
 
-// Loop thru each project and display it
 const getProjectsFromLocalStorage = () => {
   const localStorageProjects = localStorage.getItem('allProjects');
   if (localStorageProjects === null) {
@@ -216,8 +215,6 @@ const showProjects = () => {
   });
 };
 
-// function to create a project card
-
 const projectExists = (projectName) => {
   allProjects = getProjectsFromLocalStorage();
   return allProjects.find((project) => project.title === projectName);
@@ -231,12 +228,10 @@ const addProjectToLocalStorage = (newProject) => {
   localStorage.setItem('allProjects', JSON.stringify(allProjects));
 };
 
-// Add an event listener for project creation and push it into all projects
 const form = document.getElementById('input-form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const projectName = document.getElementById('title').value;
-  // const projectName = title.value;
   if (projectExists(projectName)) {
     alert('Project name already taken!');
   } else {
@@ -245,8 +240,6 @@ form.addEventListener('submit', (e) => {
     showProjects();
   }
 });
-
-// new todo creation for
 
 const localStorageOnLoad = () => {
   showProjects();
