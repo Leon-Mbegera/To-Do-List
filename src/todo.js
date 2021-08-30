@@ -67,16 +67,19 @@ export const newTodoCreationForm = (showTodos) => {
   newTodoForm.id = 'new-todo-creation-form';
   const todoTitle = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
+  todoTitle.setAttribute('required', 'true');
   todoTitle.setAttribute('placeholder', 'todo title');
   todoTitle.id = 'todo-title';
 
   const todoDesc = document.createElement('input');
   todoDesc.setAttribute('type', 'text');
+  todoDesc.setAttribute('required', 'true');
   todoDesc.setAttribute('placeholder', 'some description..');
   todoDesc.id = 'todo-desc';
 
   const todoDueDate = document.createElement('input');
   todoDueDate.setAttribute('type', 'date');
+  todoDueDate.setAttribute('required', 'true');
   todoDueDate.setAttribute('placeholder', 'due date');
   todoDueDate.id = 'todo-priority';
 
