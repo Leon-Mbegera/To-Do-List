@@ -49,6 +49,9 @@ export const showTodos = (currentPrj, newTodoCreationForm) => {
     deleteTodoBtn.innerText = 'delete';
     deleteTodoBtn.id = 'todo-dlt-btn';
     deleteTodoBtn.addEventListener('click', () => {
+      const allProjects = getProjectsFromLocalStorage();
+      const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.current.title);
+      currentPrj.current = allProjects[currentPrjIdx];
       const currentTdIdx = currentPrj.current.todos.findIndex((eTodo) => eTodo.title === todo.title);
       currentPrj.current.todos.splice(currentTdIdx, 1);
       localStorage.setItem('allProjects', JSON.stringify(allProjects));
@@ -110,7 +113,8 @@ export const newTodoCreationForm = (showTodos) => {
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
     const allProjects = getProjectsFromLocalStorage();
-    // const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+    const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.current.title);
+    currentPrj.current = allProjects[currentPrjIdx];
     currentPrj.current.todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
     showTodos(currentPrj, newTodoCreationForm);
@@ -161,9 +165,11 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const allProjects = getProjectsFromLocalStorage();
-    // const currentPrjIdx = allProjects.findIndex(
-    //   (project) => project.title === currentPrj.title,
-    // );
+    console.log(allProjects);
+    const currentPrjIdx = allProjects.findIndex(
+      (project) => project.title === currentPrj.current.title,
+    );
+    currentPrj.current = allProjects[currentPrjIdx];
     const currentTdIdx = currentPrj.current.todos.findIndex(
       (eTodo) => eTodo.title === todo.title,
     );
@@ -172,6 +178,7 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
     currentTodo.description = document.getElementById('todo-desc-modify').value;
     currentTodo.priority = document.getElementById('todo-priority-modify').value;
     currentTodo.dueDate = document.getElementById('todo-dueDate-modify').value;
+    console.log(allProjects);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
     showTodos(currentPrj, newTodoCreationForm);
     const modifyTodoForm = document.getElementById('modify-todo-form');
