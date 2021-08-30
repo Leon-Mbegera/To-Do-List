@@ -1,3 +1,5 @@
+import { todoSection, projectTodos } from "./index.js";
+import { getProjectsFromLocalStorage, allProjects, currentPrj } from "./project.js"
 export default class Todo {
   constructor(title, description, priority, dueDate) {
     this.title = title;
@@ -7,9 +9,10 @@ export default class Todo {
   }
 }
 
+
 export const showTodos = (currentPrj, newTodoCreationForm) => {
   todoSection.innerHTML = '';
-  allProjects = getProjectsFromLocalStorage();
+  let allProjects = getProjectsFromLocalStorage();
   const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
   currentPrj = allProjects[currentPrjIdx];
 
@@ -59,6 +62,59 @@ export const showTodos = (currentPrj, newTodoCreationForm) => {
   });
 };
 
+export const newTodoCreationForm = (showTodos) => {
+  const newTodoForm = document.createElement('form');
+  newTodoForm.id = 'new-todo-creation-form';
+  const todoTitle = document.createElement('input');
+  todoTitle.setAttribute('type', 'text');
+  todoTitle.setAttribute('placeholder', 'todo title');
+  todoTitle.id = 'todo-title';
+
+  const todoDesc = document.createElement('input');
+  todoDesc.setAttribute('type', 'text');
+  todoDesc.setAttribute('placeholder', 'some description..');
+  todoDesc.id = 'todo-desc';
+
+  const todoDueDate = document.createElement('input');
+  todoDueDate.setAttribute('type', 'date');
+  todoDueDate.setAttribute('placeholder', 'due date');
+  todoDueDate.id = 'todo-priority';
+
+  const todoPriority = document.createElement('select');
+  todoPriority.setAttribute('id', 'priority');
+  todoPriority.id = 'todo-dueDate';
+
+  const todoPriorities = ['Very high', 'High', 'Moderate', 'Low', 'Useless'];
+  const options = todoPriorities.map((priority) => {
+    const value = priority.toLowerCase();
+    return `<option value="${value}">${priority}</option>`;
+  });
+  todoPriority.innerHTML = options;
+
+  const todoSubmit = document.createElement('input');
+  todoSubmit.setAttribute('type', 'submit');
+  todoSubmit.id = 'todo-form-submit';
+
+  newTodoForm.append(todoTitle, todoDesc, todoDueDate, todoPriority, todoSubmit);
+  projectTodos.innerHTML = '';
+  projectTodos.append(newTodoForm);
+
+  newTodoForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const title = document.getElementById('todo-title').value;
+    const description = document.getElementById('todo-desc').value;
+    const priority = document.getElementById('todo-priority').value;
+    const dueDate = document.getElementById('todo-dueDate').value;
+    const newTodoValues = new Todo(title, description, priority, dueDate);
+    let allProjects = getProjectsFromLocalStorage();
+    const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+    allProjects[currentPrjIdx].todos.push(newTodoValues);
+    localStorage.setItem('allProjects', JSON.stringify(allProjects));
+    showTodos(currentPrj, newTodoCreationForm);
+  });
+  return newTodoForm;
+};
+
 export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   const modifyTodoForm = document.createElement('form');
   modifyTodoForm.id = 'modify-todo-form';
@@ -98,7 +154,7 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
 
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    allProjects = getProjectsFromLocalStorage();
+    let allProjects = getProjectsFromLocalStorage();
     const currentPrjIdx = allProjects.findIndex(
       (project) => project.title === currentPrj.title,
     );
