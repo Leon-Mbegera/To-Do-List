@@ -123,16 +123,19 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.id = 'modify-todo-form';
   const todoTitle = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
+  todoTitle.setAttribute('required', 'true')
   todoTitle.setAttribute('placeholder', 'todo title');
   todoTitle.id = 'todo-title-modify';
 
   const todoDesc = document.createElement('input');
   todoDesc.setAttribute('type', 'text');
+  todoDesc.setAttribute('required', 'true');
   todoDesc.setAttribute('placeholder', 'some description..');
   todoDesc.id = 'todo-desc-modify';
 
   const todoDueDate = document.createElement('input');
   todoDueDate.setAttribute('type', 'date');
+  todoDueDate.setAttribute('required', 'true')
   todoDueDate.setAttribute('placeholder', 'due date');
   todoDueDate.id = 'todo-priority-modify';
 
