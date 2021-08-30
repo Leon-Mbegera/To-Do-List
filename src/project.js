@@ -12,8 +12,8 @@ export default class Project {
   }
 }
 
-export let allProjects = [new Project('default')];
-export let currentPrj = allProjects[0];
+let allProjects = [new Project('default')];
+export const currentPrj = { current: allProjects[0]};
 
 export const getProjectsFromLocalStorage = () => {
   const localStorageProjects = localStorage.getItem('allProjects');
@@ -30,7 +30,7 @@ const onProjectClick = (e, newTodoCreationForm) => {
   const projectDiv = e.target;
   const index = Number(projectDiv.dataset.index);
   allProjects = getProjectsFromLocalStorage();
-  currentPrj = allProjects[index];
+  currentPrj.current = allProjects[index];
   todoSection.innerHTML = '';
   showTodos(currentPrj, newTodoCreationForm);
   newTodoCreationForm(showTodos);

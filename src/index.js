@@ -1,4 +1,4 @@
-import Project, { showProjects, projectExists } from './project.js';
+import Project, { showProjects, projectExists, getProjectsFromLocalStorage } from './project.js';
 
 export const todoSection = document.getElementById('project-todos');
 export const projectTodos = document.getElementById('todo-creation-form');

@@ -1,5 +1,5 @@
 import { todoSection, projectTodos } from './index.js';
-import { getProjectsFromLocalStorage, allProjects, currentPrj } from './project.js';
+import { getProjectsFromLocalStorage, currentPrj } from './project.js';
 
 export default class Todo {
   constructor(title, description, priority, dueDate) {
@@ -13,10 +13,10 @@ export default class Todo {
 export const showTodos = (currentPrj, newTodoCreationForm) => {
   todoSection.innerHTML = '';
   const allProjects = getProjectsFromLocalStorage();
-  const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
-  currentPrj = allProjects[currentPrjIdx];
+  // const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+  // currentPrj = allProjects[currentPrjIdx];
 
-  currentPrj.todos.forEach((todo) => {
+  currentPrj.current.todos.forEach((todo) => {
     const todoCard = document.createElement('div');
     todoCard.className = 'todo-card';
 
@@ -49,8 +49,8 @@ export const showTodos = (currentPrj, newTodoCreationForm) => {
     deleteTodoBtn.innerText = 'delete';
     deleteTodoBtn.id = 'todo-dlt-btn';
     deleteTodoBtn.addEventListener('click', () => {
-      const currentTdIdx = currentPrj.todos.findIndex((eTodo) => eTodo.title === todo.title);
-      currentPrj.todos.splice(currentTdIdx, 1);
+      const currentTdIdx = currentPrj.current.todos.findIndex((eTodo) => eTodo.title === todo.title);
+      currentPrj.current.todos.splice(currentTdIdx, 1);
       localStorage.setItem('allProjects', JSON.stringify(allProjects));
       showTodos(currentPrj, newTodoCreationForm);
     });
@@ -110,8 +110,8 @@ export const newTodoCreationForm = (showTodos) => {
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
     const allProjects = getProjectsFromLocalStorage();
-    const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
-    allProjects[currentPrjIdx].todos.push(newTodoValues);
+    // const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
+    currentPrj.current.todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
     showTodos(currentPrj, newTodoCreationForm);
   });
@@ -123,7 +123,7 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.id = 'modify-todo-form';
   const todoTitle = document.createElement('input');
   todoTitle.setAttribute('type', 'text');
-  todoTitle.setAttribute('required', 'true')
+  todoTitle.setAttribute('required', 'true');
   todoTitle.setAttribute('placeholder', 'todo title');
   todoTitle.id = 'todo-title-modify';
 
@@ -135,7 +135,7 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
 
   const todoDueDate = document.createElement('input');
   todoDueDate.setAttribute('type', 'date');
-  todoDueDate.setAttribute('required', 'true')
+  todoDueDate.setAttribute('required', 'true');
   todoDueDate.setAttribute('placeholder', 'due date');
   todoDueDate.id = 'todo-priority-modify';
 
@@ -161,13 +161,13 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const allProjects = getProjectsFromLocalStorage();
-    const currentPrjIdx = allProjects.findIndex(
-      (project) => project.title === currentPrj.title,
-    );
-    const currentTdIdx = allProjects[currentPrjIdx].todos.findIndex(
+    // const currentPrjIdx = allProjects.findIndex(
+    //   (project) => project.title === currentPrj.title,
+    // );
+    const currentTdIdx = currentPrj.current.todos.findIndex(
       (eTodo) => eTodo.title === todo.title,
     );
-    const currentTodo = allProjects[currentPrjIdx].todos[currentTdIdx];
+    const currentTodo = currentPrj.current.todos[currentTdIdx];
     currentTodo.title = document.getElementById('todo-title-modify').value;
     currentTodo.description = document.getElementById('todo-desc-modify').value;
     currentTodo.priority = document.getElementById('todo-priority-modify').value;
