@@ -1,5 +1,6 @@
-import { todoSection } from "./index.js";
-import { newTodoCreationForm, showTodos } from "./todo.js";
+import { todoSection } from './index.js';
+import { newTodoCreationForm, showTodos } from './todo.js';
+
 export default class Project {
   constructor(title) {
     this.title = title;
@@ -64,5 +65,3 @@ export const projectExists = (projectName) => {
   allProjects = getProjectsFromLocalStorage();
   return allProjects.find((project) => project.title === projectName);
 };
-
-

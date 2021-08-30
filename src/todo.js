@@ -1,5 +1,6 @@
-import { todoSection, projectTodos } from "./index.js";
-import { getProjectsFromLocalStorage, allProjects, currentPrj } from "./project.js"
+import { todoSection, projectTodos } from './index.js';
+import { getProjectsFromLocalStorage, allProjects, currentPrj } from './project.js';
+
 export default class Todo {
   constructor(title, description, priority, dueDate) {
     this.title = title;
@@ -9,10 +10,9 @@ export default class Todo {
   }
 }
 
-
 export const showTodos = (currentPrj, newTodoCreationForm) => {
   todoSection.innerHTML = '';
-  let allProjects = getProjectsFromLocalStorage();
+  const allProjects = getProjectsFromLocalStorage();
   const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
   currentPrj = allProjects[currentPrjIdx];
 
@@ -109,7 +109,7 @@ export const newTodoCreationForm = (showTodos) => {
     const priority = document.getElementById('todo-priority').value;
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
-    let allProjects = getProjectsFromLocalStorage();
+    const allProjects = getProjectsFromLocalStorage();
     const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
     allProjects[currentPrjIdx].todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
@@ -157,7 +157,7 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
 
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let allProjects = getProjectsFromLocalStorage();
+    const allProjects = getProjectsFromLocalStorage();
     const currentPrjIdx = allProjects.findIndex(
       (project) => project.title === currentPrj.title,
     );
