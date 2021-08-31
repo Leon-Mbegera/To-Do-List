@@ -1,8 +1,5 @@
 import Project, { showProjects, projectExists, getProjectsFromLocalStorage } from './project.js';
 
-export const todoSection = document.getElementById('project-todos');
-export const projectTodos = document.getElementById('todo-creation-form');
-
 const addProjectToLocalStorage = (newProject) => {
   const allProjects = getProjectsFromLocalStorage();
   allProjects.push(newProject);

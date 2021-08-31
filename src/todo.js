@@ -1,5 +1,5 @@
-import { todoSection, projectTodos } from './index.js';
-import { getProjectsFromLocalStorage, currentPrj } from './project.js';
+import { todoSection, projectTodos, currentPrj } from './dependency.js';
+import { getProjectsFromLocalStorage } from './project.js';
 
 export default class Todo {
   constructor(title, description, priority, dueDate) {
@@ -10,11 +10,8 @@ export default class Todo {
   }
 }
 
-export const showTodos = (currentPrj, newTodoCreationForm) => {
+export const showTodos = (currentPrj, newTodoCreationForm, modifyTodo) => {
   todoSection.innerHTML = '';
-  const allProjects = getProjectsFromLocalStorage();
-  // const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.title);
-  // currentPrj = allProjects[currentPrjIdx];
 
   currentPrj.current.todos.forEach((todo) => {
     const todoCard = document.createElement('div');
@@ -50,12 +47,16 @@ export const showTodos = (currentPrj, newTodoCreationForm) => {
     deleteTodoBtn.id = 'todo-dlt-btn';
     deleteTodoBtn.addEventListener('click', () => {
       const allProjects = getProjectsFromLocalStorage();
-      const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.current.title);
+      const currentPrjIdx = allProjects.findIndex(
+        (project) => project.title === currentPrj.current.title,
+      );
       currentPrj.current = allProjects[currentPrjIdx];
-      const currentTdIdx = currentPrj.current.todos.findIndex((eTodo) => eTodo.title === todo.title);
+      const currentTdIdx = currentPrj.current.todos.findIndex(
+        (eTodo) => eTodo.title === todo.title,
+      );
       currentPrj.current.todos.splice(currentTdIdx, 1);
       localStorage.setItem('allProjects', JSON.stringify(allProjects));
-      showTodos(currentPrj, newTodoCreationForm);
+      showTodos(currentPrj, newTodoCreationForm, modifyTodo);
     });
 
     todoCard.append(todoTitleProperty, todoDescProperty,
@@ -65,7 +66,7 @@ export const showTodos = (currentPrj, newTodoCreationForm) => {
   });
 };
 
-export const newTodoCreationForm = (showTodos) => {
+export const newTodoCreationForm = (showTodos, modifyTodo) => {
   const newTodoForm = document.createElement('form');
   newTodoForm.id = 'new-todo-creation-form';
   const todoTitle = document.createElement('input');
@@ -113,11 +114,13 @@ export const newTodoCreationForm = (showTodos) => {
     const dueDate = document.getElementById('todo-dueDate').value;
     const newTodoValues = new Todo(title, description, priority, dueDate);
     const allProjects = getProjectsFromLocalStorage();
-    const currentPrjIdx = allProjects.findIndex((project) => project.title === currentPrj.current.title);
+    const currentPrjIdx = allProjects.findIndex(
+      (project) => project.title === currentPrj.current.title,
+    );
     currentPrj.current = allProjects[currentPrjIdx];
     currentPrj.current.todos.push(newTodoValues);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
-    showTodos(currentPrj, newTodoCreationForm);
+    showTodos(currentPrj, newTodoCreationForm, modifyTodo);
   });
   return newTodoForm;
 };
@@ -165,7 +168,6 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
   modifyTodoForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const allProjects = getProjectsFromLocalStorage();
-    console.log(allProjects);
     const currentPrjIdx = allProjects.findIndex(
       (project) => project.title === currentPrj.current.title,
     );
@@ -178,9 +180,8 @@ export const modifyTodo = (todo, showTodos, newTodoCreationForm) => {
     currentTodo.description = document.getElementById('todo-desc-modify').value;
     currentTodo.priority = document.getElementById('todo-priority-modify').value;
     currentTodo.dueDate = document.getElementById('todo-dueDate-modify').value;
-    console.log(allProjects);
     localStorage.setItem('allProjects', JSON.stringify(allProjects));
-    showTodos(currentPrj, newTodoCreationForm);
+    showTodos(currentPrj, newTodoCreationForm, modifyTodo);
     const modifyTodoForm = document.getElementById('modify-todo-form');
     modifyTodoForm.remove();
     newTodoCreationForm(showTodos);

@@ -1,4 +1,4 @@
-import { todoSection } from './index.js';
+import { todoSection, currentPrj } from './dependency.js';
 import { newTodoCreationForm, showTodos } from './todo.js';
 
 export default class Project {
@@ -13,7 +13,7 @@ export default class Project {
 }
 
 let allProjects = [new Project('default')];
-export const currentPrj = { current: allProjects[0]};
+currentPrj.current = allProjects[0];
 
 export const getProjectsFromLocalStorage = () => {
   const localStorageProjects = localStorage.getItem('allProjects');
