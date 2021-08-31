@@ -1,0 +1,62 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif; 
+}
+body {
+  padding: 0.5rem 1rem;
+}
+
+header {
+  background-color:aquamarine;
+  height: 4rem;
+  text-align: center;
+}
+
+h4 {
+  text-decoration: underline;
+  width: auto;
+  color:  blueviolet;
+  padding-bottom: 0.5rem;
+}
+
+#project-todos {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+
+#project-todos > div {
+  margin-right: 3rem;
+}
+
+#todo-title, #todo-desc, #todo-dueDate, #todo-priority, #todo-title-modify, #todo-desc-modify, #todo-dueDate-modify, 
+#todo-priority-modify {
+  margin-right: 1rem;
+  border-bottom: 2px solid black;
+  border-radius: 3px;
+}
+
+#todo-form-submit, #todo-form-submit-modify, #project-submit-btn, #todo-dlt-btn, .update-todo-btn {
+  background-color: blueviolet;
+  color:aliceblue;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+#project-div {
+  display: block;
+}
+
+a:hover {
+  cursor:grab;
+}
+
+a:visited {
+  font-weight: bolder;
+}
+
+.todo-card {
+  border: 2px solid purple;
+  border-radius: 3px;
+  padding: 0.8rem 3rem 0.8rem 0.8rem;
+}
