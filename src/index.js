@@ -1,4 +1,5 @@
-import Project, { showProjects, projectExists, getProjectsFromLocalStorage } from './project.js';
+import Project, { showProjects, projectExists } from './project.js';
+import { getProjectsFromLocalStorage } from './dependency.js';
 
 const addProjectToLocalStorage = (newProject) => {
   const allProjects = getProjectsFromLocalStorage();

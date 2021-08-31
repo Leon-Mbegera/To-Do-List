@@ -1,5 +1,5 @@
-import { todoSection, currentPrj } from './dependency.js';
-import { newTodoCreationForm, showTodos } from './todo.js';
+import { todoSection, currentPrj, getProjectsFromLocalStorage } from './dependency.js';
+import { modifyTodo, newTodoCreationForm, showTodos } from './todo.js';
 
 export default class Project {
   constructor(title) {
@@ -12,27 +12,13 @@ export default class Project {
   }
 }
 
-let allProjects = [new Project('default')];
-currentPrj.current = allProjects[0];
-
-export const getProjectsFromLocalStorage = () => {
-  const localStorageProjects = localStorage.getItem('allProjects');
-  if (localStorageProjects === null) {
-    allProjects = [new Project('default')];
-    localStorage.setItem('allProjects', JSON.stringify(allProjects));
-  } else {
-    allProjects = JSON.parse(localStorageProjects);
-  }
-  return allProjects;
-};
-
 const onProjectClick = (e, newTodoCreationForm) => {
   const projectDiv = e.target;
   const index = Number(projectDiv.dataset.index);
-  allProjects = getProjectsFromLocalStorage();
+  const allProjects = getProjectsFromLocalStorage();
   currentPrj.current = allProjects[index];
   todoSection.innerHTML = '';
-  showTodos(currentPrj, newTodoCreationForm);
+  showTodos(currentPrj, newTodoCreationForm, modifyTodo);
   newTodoCreationForm(showTodos);
   return projectDiv;
 };
@@ -50,8 +36,7 @@ const projectCard = (project, idx) => {
 
 export const showProjects = () => {
   const projectSection = document.getElementById('all-projects');
-  const projectsFromLocalStorage = getProjectsFromLocalStorage();
-  allProjects.push(projectsFromLocalStorage);
+  const allProjects = getProjectsFromLocalStorage();
   projectSection.innerHTML = '';
   allProjects.forEach((project, idx) => {
     const newProjectCard = projectCard(project, idx);
@@ -62,6 +47,6 @@ export const showProjects = () => {
 showProjects();
 
 export const projectExists = (projectName) => {
-  allProjects = getProjectsFromLocalStorage();
+  const allProjects = getProjectsFromLocalStorage();
   return allProjects.find((project) => project.title === projectName);
 };

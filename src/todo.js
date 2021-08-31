@@ -1,5 +1,6 @@
-import { todoSection, projectTodos, currentPrj } from './dependency.js';
-import { getProjectsFromLocalStorage } from './project.js';
+import {
+  todoSection, projectTodos, currentPrj, getProjectsFromLocalStorage,
+} from './dependency.js';
 
 export default class Todo {
   constructor(title, description, priority, dueDate) {
