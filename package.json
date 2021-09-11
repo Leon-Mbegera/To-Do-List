@@ -3,6 +3,16 @@
   "version": "1.0.0",
   "description": "An app to create todos and organize them into projects",
   "main": "index.js",
+  "jest": {
+    "resetMocks": false,
+    "setupFiles": [
+      "./src/project.js",
+      "./src/todo.js",
+      "./src/dependency.js",
+      "./src/index.js",
+      "jest-localstorage-mock"
+    ]
+  },
   "scripts": {
     "test": "jest --watch",
     "dev": "webpack --mode development",
@@ -27,6 +37,7 @@
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.24.2",
     "jest": "^27.1.1",
+    "jest-localstorage-mock": "^2.4.17",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.0.0"

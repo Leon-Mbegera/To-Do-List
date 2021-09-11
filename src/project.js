@@ -1,5 +1,6 @@
 import { todoSection, currentPrj, getProjectsFromLocalStorage } from './dependency.js';
 import { modifyTodo, newTodoCreationForm, showTodos } from './todo.js';
+import "jest-localstorage-mock";
 
 export default class Project {
   constructor(title) {
