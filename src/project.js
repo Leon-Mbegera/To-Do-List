@@ -44,7 +44,7 @@ export const showProjects = () => {
   });
 };
 
-showProjects();
+// showProjects();
 
 export const projectExists = (projectName) => {
   const allProjects = getProjectsFromLocalStorage();
