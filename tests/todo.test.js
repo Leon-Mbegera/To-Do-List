@@ -29,24 +29,23 @@ describe('Tests on todos class', () => {
 });
 
 describe('todos array containing', () => {
-    const todos = [
+  const todos = [
+    ['name-one', 'description', 'High', '5/7/1999'],
+    ['name-two', 'description', 'Moderate', '7/7/1999'],
+  ];
+
+  it('matches even if original todos array contains additional tasks', () => {
+    expect([
       ['name-one', 'description', 'High', '5/7/1999'],
       ['name-two', 'description', 'Moderate', '7/7/1999'],
-    ];
+      ['name-three', 'description', 'Low', '21/9/1999'],
+    ]).toEqual(expect.arrayContaining(todos));
+  });
 
-    it('matches even if original todos array contains additional tasks', () => {
-      expect([
-        ['name-one', 'description', 'High', '5/7/1999'],
-        ['name-two', 'description', 'Moderate', '7/7/1999'],
-        ['name-three', 'description', 'Low', '21/9/1999'],
-      ]).toEqual(expect.arrayContaining(todos));
-    });
-
-    it('does not match if original todos array does not contain that new task', () => {
-      expect([
-        ['name-two', 'description', 'Moderate', '7/7/1999'],
-        ['name-three', 'description', 'Low', '21/9/1999'],
-      ]).not.toEqual(expect.arrayContaining(todos));
-    });
+  it('does not match if original todos array does not contain that new task', () => {
+    expect([
+      ['name-two', 'description', 'Moderate', '7/7/1999'],
+      ['name-three', 'description', 'Low', '21/9/1999'],
+    ]).not.toEqual(expect.arrayContaining(todos));
+  });
 });
-

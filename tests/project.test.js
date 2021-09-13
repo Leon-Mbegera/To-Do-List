@@ -1,9 +1,7 @@
-import Project, { showProjects, projectCard } from '../src/project';
-import document from '../dom';
-
+import Project, { showProjects, projectCard } from '../src/project.js';
+import document from '../dom.js';
 
 describe('Tests on project class', () => {
-
   test('a newly created project should be truthy', () => {
     const newProject = new Project('givenTitle');
     expect(newProject).toBeTruthy();
@@ -34,14 +32,13 @@ describe('Tests on project class', () => {
 });
 
 describe('Test functions related to project class', () => {
-
   test('showProjects method displays all created projects', () => {
     showProjects();
     const projectSection = document.getElementById('all-projects');
     expect(projectSection.innerHTML).toContain('default');
   });
 
-  test ('projectCard attaches a newly created project on a card', () => {
+  test('projectCard attaches a newly created project on a card', () => {
     const project = jest.fn();
     projectCard(project, 'title');
     const projectDiv = document.createElement('a');
@@ -49,5 +46,3 @@ describe('Test functions related to project class', () => {
     expect(project).not.toHaveReturned();
   });
 });
-
-
