@@ -21,6 +21,10 @@
 - run the below command for webpack to always track changes made in index.js file and its dependent modules.
 - `$ npm run watch`
 
+## Testing
+
+- run `npm run test` on the terminal.
+
 ## Author
 
 👤 **Leon**
