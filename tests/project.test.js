@@ -1,4 +1,4 @@
-import Project, { showProjects } from '../src/project';
+import Project, { showProjects, projectCard } from '../src/project';
 import document from '../dom';
 
 
@@ -41,7 +41,13 @@ describe('Test functions related to project class', () => {
     expect(projectSection.innerHTML).toContain('default');
   });
 
-  
+  test ('projectCard attaches a newly created project on a card', () => {
+    const project = jest.fn();
+    projectCard(project, 'title');
+    const projectDiv = document.createElement('a');
+    projectDiv.textContent = project.title;
+    expect(project).not.toHaveReturned();
+  });
 });
 
 
