@@ -18,6 +18,14 @@ describe('Tests on todos class', () => {
     expect(newTodo.title).toBeFalsy();
     expect(newTodo.description).toBeFalsy();
   });
+
+  test('return all attributes of a todo task', () => {
+    const newTodo = new Todo('name', 'description', 'High', '7/7/1999');
+    expect(newTodo.title).toMatch('name');
+    expect(newTodo.description).toMatch('description');
+    expect(newTodo.priority).toMatch('High');
+    expect(newTodo.dueDate).toMatch('7/7/1999');
+  });
 });
 
 describe('todos array containing', () => {
@@ -41,3 +49,4 @@ describe('todos array containing', () => {
       ]).not.toEqual(expect.arrayContaining(todos));
     });
 });
+
