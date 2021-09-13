@@ -1,4 +1,5 @@
-import Project from '../src/project';
+import Project, { showProjects } from '../src/project';
+import document from '../dom';
 
 
 describe('Tests on project class', () => {
@@ -32,5 +33,15 @@ describe('Tests on project class', () => {
   });
 });
 
+describe('Test functions related to project class', () => {
+
+  test('showProjects method displays all created projects', () => {
+    showProjects();
+    const projectSection = document.getElementById('all-projects');
+    expect(projectSection.innerHTML).toContain('default');
+  });
+
+  
+});
 
 
