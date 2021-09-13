@@ -1,5 +1,6 @@
 import Project from '../src/project';
 
+
 describe('Tests on project class', () => {
 
   test('a newly created project should be truthy', () => {
@@ -25,8 +26,11 @@ describe('Tests on project class', () => {
     );
   });
 
-  test('')
-  
+  test('todos array is an object of project', () => {
+    const newProject = new Project('given-title');
+    expect(typeof newProject.todos).toBe('object');
+  });
+});
 
-})
+
 

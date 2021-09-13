@@ -14,7 +14,7 @@
     ]
   },
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "watch": "webpack --watch",
