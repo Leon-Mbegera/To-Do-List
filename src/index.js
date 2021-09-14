@@ -1,5 +1,6 @@
 import Project, { showProjects, projectExists } from './project.js';
 import { getProjectsFromLocalStorage } from './dependency.js';
+import 'jest-localstorage-mock';
 
 const addProjectToLocalStorage = (newProject) => {
   const allProjects = getProjectsFromLocalStorage();

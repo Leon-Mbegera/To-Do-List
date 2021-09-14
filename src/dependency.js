@@ -1,3 +1,5 @@
+import 'jest-localstorage-mock';
+
 export const todoSection = document.getElementById('project-todos');
 export const projectTodos = document.getElementById('todo-creation-form');
 

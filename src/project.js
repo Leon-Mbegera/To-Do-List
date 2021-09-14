@@ -1,5 +1,6 @@
 import { todoSection, currentPrj, getProjectsFromLocalStorage } from './dependency.js';
 import { modifyTodo, newTodoCreationForm, showTodos } from './todo.js';
+import 'jest-localstorage-mock';
 
 export default class Project {
   constructor(title) {
@@ -23,7 +24,7 @@ const onProjectClick = (e, newTodoCreationForm) => {
   return projectDiv;
 };
 
-const projectCard = (project, idx) => {
+export const projectCard = (project, idx) => {
   const projectDiv = document.createElement('a');
   projectDiv.id = 'project-div';
   projectDiv.textContent = project.title;
@@ -44,7 +45,7 @@ export const showProjects = () => {
   });
 };
 
-showProjects();
+// showProjects();
 
 export const projectExists = (projectName) => {
   const allProjects = getProjectsFromLocalStorage();
